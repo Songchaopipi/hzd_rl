@@ -8,7 +8,8 @@ npm run dev -- --host 0.0.0.0 --port 5177
 ```
 
 入口：http://localhost:5177/ 。静态发布使用 `npm run build` 生成的 `dist/`。
-公网地址：https://hzd-humanoid.cs5816483.chatgpt.site 。发布配置见 `.openai/hosting.json`。
+正式入口迁移到 GitHub Pages，目标仓库 `Songchaopipi/hzd_rl`，发布状态以 GitHub Actions 部署结果为准。
+旧 `chatgpt.site` 地址存在 403 访问问题，不再作为公开入口。发布步骤见 `PUBLISH_GITHUB.md`。
 
 ## 内容
 

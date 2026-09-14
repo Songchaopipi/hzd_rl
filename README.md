@@ -7,11 +7,14 @@
 
 ## 公开发布
 
-网站地址：https://hzd-humanoid.cs5816483.chatgpt.site
+正式发布目标改为 **GitHub Pages**，仓库名称 `hzd_rl`。
+预期地址：`https://songchaopipi.github.io/hzd_rl/`。首次发布以 GitHub Actions 的部署结果为准。
 
-托管项目保存在 `.openai/hosting.json`，访问权限为公开。Git `origin` 是独立的网站源码仓库。
-发布需要依次提交和推送源码、构建 `dist/`、保存版本并部署，单独 push 不会更新线上页面。
-静态托管不依赖本地开发服务器运行。
+原 `chatgpt.site` 托管虽然设置为 public，但已复现部分网络访问被 Cloudflare 返回 403，
+不能作为论文的公开入口。`.openai/hosting.json` 和当前 Git `origin` 只记录该历史托管项目。
+
+GitHub 发布使用已有的 `.github/workflows/deploy.yml`，步骤见 `PUBLISH_GITHUB.md`。
+只发布当前网页目录，不上传上级训练仓库、原始 rollout 或日志。
 
 ## 启动
 

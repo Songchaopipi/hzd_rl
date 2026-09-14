@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+tests/artifacts/
+__pycache__/
+*.pyc
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea

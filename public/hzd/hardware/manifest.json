@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "videos": [
+    {
+      "id": "vx_04_hzd",
+      "group": "forward",
+      "label": "Forward command: vx = +0.4 m/s",
+      "command": {
+        "vx": 0.4
+      },
+      "source_name": "vx_04_hzd.mp4",
+      "src": "hzd/hardware/vx_04_hzd.mp4",
+      "poster": "hzd/hardware/vx_04_hzd.jpg",
+      "duration": 16.746,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 4038290,
+      "poster_time": 8.373
+    },
+    {
+      "id": "vx_04_hzd_neg",
+      "group": "forward",
+      "label": "Backward command: vx = -0.4 m/s",
+      "command": {
+        "vx": -0.4
+      },
+      "source_name": "vx_04_hzd_neg.mp4",
+      "src": "hzd/hardware/vx_04_hzd_neg.mp4",
+      "poster": "hzd/hardware/vx_04_hzd_neg.jpg",
+      "duration": 15.509,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 3651406,
+      "poster_time": 7.7545
+    },
+    {
+      "id": "vx_08_hzd",
+      "group": "forward",
+      "label": "Forward command: vx = +0.8 m/s",
+      "command": {
+        "vx": 0.8
+      },
+      "source_name": "vx_08_hzd.mp4",
+      "src": "hzd/hardware/vx_08_hzd.mp4",
+      "poster": "hzd/hardware/vx_08_hzd.jpg",
+      "duration": 5.482,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 1695476,
+      "poster_time": 2.741
+    },
+    {
+      "id": "vx_08_hzd_neg",
+      "group": "forward",
+      "label": "Backward command: vx = -0.8 m/s",
+      "command": {
+        "vx": -0.8
+      },
+      "source_name": "vx_08_hzd_neg.mp4",
+      "src": "hzd/hardware/vx_08_hzd_neg.mp4",
+      "poster": "hzd/hardware/vx_08_hzd_neg.jpg",
+      "duration": 6.72,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2058852,
+      "poster_time": 3.36
+    },
+    {
+      "id": "vx_1_hzd",
+      "group": "forward",
+      "label": "Forward command: vx = +1 m/s",
+      "command": {
+        "vx": 1.0
+      },
+      "source_name": "vx_1_hzd.mp4",
+      "src": "hzd/hardware/vx_1_hzd.mp4",
+      "poster": "hzd/hardware/vx_1_hzd.jpg",
+      "duration": 5.802,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 1682834,
+      "poster_time": 2.901
+    },
+    {
+      "id": "vx_1_neg_hzd",
+      "group": "forward",
+      "label": "Backward command: vx = -1 m/s",
+      "command": {
+        "vx": -1.0
+      },
+      "source_name": "vx_1_neg_hzd.mp4",
+      "src": "hzd/hardware/vx_1_neg_hzd.mp4",
+      "poster": "hzd/hardware/vx_1_neg_hzd.jpg",
+      "duration": 4.842,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 1354302,
+      "poster_time": 2.421
+    },
+    {
+      "id": "vy_04_hzd_pos_neg",
+      "group": "lateral",
+      "label": "Lateral command: vy = +/-0.4 m/s (both directions)",
+      "command": {
+        "vy": [
+          -0.4,
+          0.4
+        ]
+      },
+      "source_name": "vy_04_hzd_pos_neg.mp4",
+      "src": "hzd/hardware/vy_04_hzd_pos_neg.mp4",
+      "poster": "hzd/hardware/vy_04_hzd_pos_neg.jpg",
+      "duration": 29.738,
+      "width": 960,
+      "height": 544,
+      "size_bytes": 6722559,
+      "poster_time": 14.869
+    },
+    {
+      "id": "vy_06_hzd_pos_neg",
+      "group": "lateral",
+      "label": "Lateral command: vy = +/-0.6 m/s (both directions)",
+      "command": {
+        "vy": [
+          -0.6,
+          0.6
+        ]
+      },
+      "source_name": "vy_06_hzd_pos_neg.mp4",
+      "src": "hzd/hardware/vy_06_hzd_pos_neg.mp4",
+      "poster": "hzd/hardware/vy_06_hzd_pos_neg.jpg",
+      "duration": 17.067,
+      "width": 960,
+      "height": 544,
+      "size_bytes": 3941838,
+      "poster_time": 1.7067
+    },
+    {
+      "id": "vy_08_hzd_pos_neg",
+      "group": "lateral",
+      "label": "Lateral command: vy = +/-0.8 m/s (both directions)",
+      "command": {
+        "vy": [
+          -0.8,
+          0.8
+        ]
+      },
+      "source_name": "vy_08_hzd_pos_neg.mp4",
+      "src": "hzd/hardware/vy_08_hzd_pos_neg.mp4",
+      "poster": "hzd/hardware/vy_08_hzd_pos_neg.jpg",
+      "duration": 11.136,
+      "width": 960,
+      "height": 544,
+      "size_bytes": 2896301,
+      "poster_time": 1.1136
+    },
+    {
+      "id": "wz_hzd_04",
+      "group": "turning",
+      "label": "Turning command: wz = +0.4 rad/s",
+      "command": {
+        "wz": 0.4
+      },
+      "source_name": "wz_hzd_04.mp4",
+      "src": "hzd/hardware/wz_hzd_04.mp4",
+      "poster": "hzd/hardware/wz_hzd_04.jpg",
+      "duration": 12.437,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 4063993,
+      "poster_time": 11.1933
+    },
+    {
+      "id": "wz_hzd_06",
+      "group": "turning",
+      "label": "Turning command: wz = +0.6 rad/s",
+      "command": {
+        "wz": 0.6
+      },
+      "source_name": "wz_hzd_06.mp4",
+      "src": "hzd/hardware/wz_hzd_06.mp4",
+      "poster": "hzd/hardware/wz_hzd_06.jpg",
+      "duration": 19.946,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5167000,
+      "poster_time": 17.9514
+    },
+    {
+      "id": "wz_hzd_08",
+      "group": "turning",
+      "label": "Turning command: wz = +0.8 rad/s",
+      "command": {
+        "wz": 0.8
+      },
+      "source_name": "wz_hzd_08.mp4",
+      "src": "hzd/hardware/wz_hzd_08.mp4",
+      "poster": "hzd/hardware/wz_hzd_08.jpg",
+      "duration": 9.941,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2523408,
+      "poster_time": 2.9823
+    },
+    {
+      "id": "t_05_hzd",
+      "group": "cadence",
+      "label": "Period command: T = 0.5 s",
+      "command": {
+        "period": 0.5
+      },
+      "source_name": "T_05_HZD.mp4",
+      "src": "hzd/hardware/t_05_hzd.mp4",
+      "poster": "hzd/hardware/t_05_hzd.jpg",
+      "duration": 12.65,
+      "width": 960,
+      "height": 544,
+      "size_bytes": 3135428,
+      "poster_time": 8.855
+    },
+    {
+      "id": "t_08_hzd",
+      "group": "cadence",
+      "label": "Period command: T = 0.8 s",
+      "command": {
+        "period": 0.8
+      },
+      "source_name": "T_08_HZD.mp4",
+      "src": "hzd/hardware/t_08_hzd.mp4",
+      "poster": "hzd/hardware/t_08_hzd.jpg",
+      "duration": 14.442,
+      "width": 960,
+      "height": 544,
+      "size_bytes": 3828918,
+      "poster_time": 12.9978
+    },
+    {
+      "id": "t_1_hzd",
+      "group": "cadence",
+      "label": "Period command: T = 1 s",
+      "command": {
+        "period": 1.0
+      },
+      "source_name": "T_1_HZD.mp4",
+      "src": "hzd/hardware/t_1_hzd.mp4",
+      "poster": "hzd/hardware/t_1_hzd.jpg",
+      "duration": 37.504,
+      "width": 960,
+      "height": 544,
+      "size_bytes": 8476218,
+      "poster_time": 18.752
+    }
+  ],
+  "command_units": {
+    "vx": "m/s",
+    "vy": "m/s",
+    "wz": "rad/s",
+    "period": "s"
+  },
+  "command_semantics": {
+    "source": "Filename labels denote commanded values, not measured motion.",
+    "arrays": "A numeric array lists commands represented in the clip, not their order or timing.",
+    "lateral": "pos_neg means both directions; per-frame commands are unavailable.",
+    "unspecified": "Omitted command components are unknown, not assumed zero.",
+    "period": "T denotes the commanded gait period in seconds, not measured cadence."
+  },
+  "contact_sheet": "hzd/hardware/contact-sheet.jpg",
+  "review_sheets": {
+    "forward": "hzd/hardware/review-forward.jpg",
+    "lateral": "hzd/hardware/review-lateral.jpg",
+    "turning": "hzd/hardware/review-turning.jpg",
+    "cadence": "hzd/hardware/review-cadence.jpg"
+  },
+  "inspection": "hzd/hardware/inspection.json",
+  "total_duration": 219.962,
+  "total_video_bytes": 55236823
+}

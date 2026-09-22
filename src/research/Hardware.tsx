@@ -41,8 +41,8 @@ export function Hardware() {
     <div className="page-width">
       <div className="hardware-heading"><div><span className="live-dot"/><span>REAL-ROBOT EXPERIMENTS</span></div><a href="#evidence">Experimental evidence <ArrowDown size={15}/></a></div>
       <div className="hardware-policy-select"><Tabs label="Robot policy" options={[
-        { value: 'teacher', label: `Teacher baseline (${teacher.length})` },
-        { value: 'tube', label: `HZD-Tube (${tube.length})` },
+        { value: 'teacher', label: request.data ? `Teacher baseline (${teacher.length})` : 'Teacher baseline' },
+        { value: 'tube', label: request.data ? `HZD-Tube (${tube.length})` : 'HZD-Tube' },
       ]} value={mode} onChange={value => { pauseVideos(); setMode(value === 'teacher' ? 'teacher' : 'tube') }}/><span>Unitree G1 / 29 DoF</span></div>
       {mode === 'tube' && <div className="hardware-toolbar"><Tabs label="HZD-Tube experiments" options={GROUPS} value={group} onChange={value => { pauseVideos(); setGroup(value) }}/></div>}
       {mode === 'tube' && group === 'forward' && <div className="hardware-speeds"><span>Command magnitude</span><Tabs label="Forward speed" options={['0.4', '0.8', '1.0'].map(value => ({ value, label: `${value} m/s` }))} value={speed} onChange={setSpeed}/></div>}

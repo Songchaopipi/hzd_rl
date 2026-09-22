@@ -303,7 +303,7 @@
     {
       "id": "teacher_backward",
       "group": "teacher",
-      "label": "Teacher demonstration 1",
+      "label": "Teacher: backward walking",
       "command": {},
       "source_name": "TEACHER_backward.mp4",
       "src": "hzd/hardware/teacher_backward.mp4",
@@ -317,7 +317,7 @@
     {
       "id": "teacher_h_06",
       "group": "teacher",
-      "label": "Teacher demonstration 2",
+      "label": "Teacher: low torso height (trial 1)",
       "command": {},
       "source_name": "teacher_h_06.mp4",
       "src": "hzd/hardware/teacher_h_06.mp4",
@@ -331,7 +331,7 @@
     {
       "id": "teacher_h_06_alt",
       "group": "teacher",
-      "label": "Teacher demonstration 3",
+      "label": "Teacher: low torso height (trial 2)",
       "command": {},
       "source_name": "teacher_h_06_.mp4",
       "src": "hzd/hardware/teacher_h_06_alt.mp4",

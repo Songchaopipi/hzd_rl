@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "videos": [
     {
       "id": "vx_04_hzd",
@@ -15,7 +15,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 4038290,
-      "poster_time": 8.373
+      "poster_time": 8.373,
+      "policy": "tube"
     },
     {
       "id": "vx_04_hzd_neg",
@@ -31,7 +32,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 3651406,
-      "poster_time": 7.7545
+      "poster_time": 7.7545,
+      "policy": "tube"
     },
     {
       "id": "vx_08_hzd",
@@ -47,7 +49,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 1695476,
-      "poster_time": 2.741
+      "poster_time": 2.741,
+      "policy": "tube"
     },
     {
       "id": "vx_08_hzd_neg",
@@ -63,7 +66,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 2058852,
-      "poster_time": 3.36
+      "poster_time": 3.36,
+      "policy": "tube"
     },
     {
       "id": "vx_1_hzd",
@@ -79,7 +83,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 1682834,
-      "poster_time": 2.901
+      "poster_time": 2.901,
+      "policy": "tube"
     },
     {
       "id": "vx_1_neg_hzd",
@@ -95,7 +100,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 1354302,
-      "poster_time": 2.421
+      "poster_time": 2.421,
+      "policy": "tube"
     },
     {
       "id": "vy_04_hzd_pos_neg",
@@ -114,7 +120,8 @@
       "width": 960,
       "height": 544,
       "size_bytes": 6722559,
-      "poster_time": 14.869
+      "poster_time": 14.869,
+      "policy": "tube"
     },
     {
       "id": "vy_06_hzd_pos_neg",
@@ -133,7 +140,8 @@
       "width": 960,
       "height": 544,
       "size_bytes": 3941838,
-      "poster_time": 1.7067
+      "poster_time": 1.7067,
+      "policy": "tube"
     },
     {
       "id": "vy_08_hzd_pos_neg",
@@ -152,7 +160,8 @@
       "width": 960,
       "height": 544,
       "size_bytes": 2896301,
-      "poster_time": 1.1136
+      "poster_time": 1.1136,
+      "policy": "tube"
     },
     {
       "id": "wz_hzd_04",
@@ -168,7 +177,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 4063993,
-      "poster_time": 11.1933
+      "poster_time": 11.1933,
+      "policy": "tube"
     },
     {
       "id": "wz_hzd_06",
@@ -184,7 +194,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 5167000,
-      "poster_time": 17.9514
+      "poster_time": 17.9514,
+      "policy": "tube"
     },
     {
       "id": "wz_hzd_08",
@@ -200,7 +211,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 2523408,
-      "poster_time": 2.9823
+      "poster_time": 2.9823,
+      "policy": "tube"
     },
     {
       "id": "t_05_hzd",
@@ -216,7 +228,8 @@
       "width": 960,
       "height": 544,
       "size_bytes": 3135428,
-      "poster_time": 8.855
+      "poster_time": 8.855,
+      "policy": "tube"
     },
     {
       "id": "t_08_hzd",
@@ -232,7 +245,8 @@
       "width": 960,
       "height": 544,
       "size_bytes": 3828918,
-      "poster_time": 12.9978
+      "poster_time": 12.9978,
+      "policy": "tube"
     },
     {
       "id": "t_1_hzd",
@@ -248,7 +262,8 @@
       "width": 960,
       "height": 544,
       "size_bytes": 8476218,
-      "poster_time": 18.752
+      "poster_time": 18.752,
+      "policy": "tube"
     },
     {
       "id": "vary_height_06_t_06_hzd",
@@ -265,7 +280,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 7364607,
-      "poster_time": 6.25
+      "poster_time": 6.25,
+      "policy": "tube"
     },
     {
       "id": "vary_height_h_06_t1_hzd",
@@ -282,7 +298,8 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 15872513,
-      "poster_time": 15.99
+      "poster_time": 15.99,
+      "policy": "tube"
     },
     {
       "id": "vary_height_lateral_hzd",
@@ -298,49 +315,350 @@
       "width": 1280,
       "height": 720,
       "size_bytes": 7039581,
-      "poster_time": 6.27
+      "poster_time": 6.27,
+      "policy": "tube"
     },
     {
-      "id": "teacher_backward",
-      "group": "teacher",
-      "label": "Teacher: backward walking",
-      "command": {},
-      "source_name": "TEACHER_backward.mp4",
-      "src": "hzd/hardware/teacher_backward.mp4",
-      "poster": "hzd/hardware/teacher_backward.jpg",
-      "duration": 10.006,
+      "id": "teacher_vx_neg_0p4",
+      "policy": "teacher",
+      "group": "forward",
+      "label": "Teacher | Backward: vx = -0.4 m/s",
+      "command": {
+        "vx": -0.4
+      },
+      "source_name": "vx=-0.4.mp4",
+      "src": "hzd/hardware/teacher_vx_neg_0p4.mp4",
+      "poster": "hzd/hardware/teacher_vx_neg_0p4.jpg",
+      "duration": 9.216,
       "width": 1280,
       "height": 720,
-      "size_bytes": 5208188,
-      "poster_time": 5.0
+      "size_bytes": 2137856,
+      "poster_time": 4.608
     },
     {
-      "id": "teacher_h_06",
-      "group": "teacher",
-      "label": "Teacher: low torso height (trial 1)",
-      "command": {},
-      "source_name": "teacher_h_06.mp4",
-      "src": "hzd/hardware/teacher_h_06.mp4",
-      "poster": "hzd/hardware/teacher_h_06.jpg",
-      "duration": 6.848,
+      "id": "teacher_vx_neg_0p8",
+      "policy": "teacher",
+      "group": "forward",
+      "label": "Teacher | Backward: vx = -0.8 m/s",
+      "command": {
+        "vx": -0.8
+      },
+      "source_name": "vx=-0.8.mp4",
+      "src": "hzd/hardware/teacher_vx_neg_0p8.mp4",
+      "poster": "hzd/hardware/teacher_vx_neg_0p8.jpg",
+      "duration": 8.768,
       "width": 1280,
       "height": 720,
-      "size_bytes": 4163984,
-      "poster_time": 3.4
+      "size_bytes": 2569778,
+      "poster_time": 4.384
     },
     {
-      "id": "teacher_h_06_alt",
-      "group": "teacher",
-      "label": "Teacher: low torso height (trial 2)",
-      "command": {},
-      "source_name": "teacher_h_06_.mp4",
-      "src": "hzd/hardware/teacher_h_06_alt.mp4",
-      "poster": "hzd/hardware/teacher_h_06_alt.jpg",
-      "duration": 9.6,
+      "id": "teacher_vx_neg_1",
+      "policy": "teacher",
+      "group": "forward",
+      "label": "Teacher | Backward: vx = -1 m/s",
+      "command": {
+        "vx": -1.0
+      },
+      "source_name": "vx=-1.mp4",
+      "src": "hzd/hardware/teacher_vx_neg_1.mp4",
+      "poster": "hzd/hardware/teacher_vx_neg_1.jpg",
+      "duration": 7.467,
       "width": 1280,
       "height": 720,
-      "size_bytes": 5392508,
-      "poster_time": 4.8
+      "size_bytes": 2332403,
+      "poster_time": 3.7335
+    },
+    {
+      "id": "teacher_vx_pos_0p4",
+      "policy": "teacher",
+      "group": "forward",
+      "label": "Teacher | Forward: vx = +0.4 m/s",
+      "command": {
+        "vx": 0.4
+      },
+      "source_name": "vx=+0.4.mp4",
+      "src": "hzd/hardware/teacher_vx_pos_0p4.mp4",
+      "poster": "hzd/hardware/teacher_vx_pos_0p4.jpg",
+      "duration": 15.509,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 3450460,
+      "poster_time": 7.7545
+    },
+    {
+      "id": "teacher_vx_pos_0p8",
+      "policy": "teacher",
+      "group": "forward",
+      "label": "Teacher | Forward: vx = +0.8 m/s",
+      "command": {
+        "vx": 0.8
+      },
+      "source_name": "vx=+0.8.mp4",
+      "src": "hzd/hardware/teacher_vx_pos_0p8.mp4",
+      "poster": "hzd/hardware/teacher_vx_pos_0p8.jpg",
+      "duration": 7.914,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2121900,
+      "poster_time": 3.957
+    },
+    {
+      "id": "teacher_vx_pos_1",
+      "policy": "teacher",
+      "group": "forward",
+      "label": "Teacher | Forward: vx = +1 m/s",
+      "command": {
+        "vx": 1.0
+      },
+      "source_name": "vx=1.mp4",
+      "src": "hzd/hardware/teacher_vx_pos_1.mp4",
+      "poster": "hzd/hardware/teacher_vx_pos_1.jpg",
+      "duration": 7.914,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2255198,
+      "poster_time": 3.957
+    },
+    {
+      "id": "teacher_vy_neg_0p4",
+      "policy": "teacher",
+      "group": "lateral",
+      "label": "Teacher | Lateral: vy = -0.4 m/s",
+      "command": {
+        "vy": -0.4
+      },
+      "source_name": "vy=-0.4.mp4",
+      "src": "hzd/hardware/teacher_vy_neg_0p4.mp4",
+      "poster": "hzd/hardware/teacher_vy_neg_0p4.jpg",
+      "duration": 11.669,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 3606627,
+      "poster_time": 5.8345
+    },
+    {
+      "id": "teacher_vy_neg_0p6",
+      "policy": "teacher",
+      "group": "lateral",
+      "label": "Teacher | Lateral: vy = -0.6 m/s",
+      "command": {
+        "vy": -0.6
+      },
+      "source_name": "vy=-0.6.mp4",
+      "src": "hzd/hardware/teacher_vy_neg_0p6.mp4",
+      "poster": "hzd/hardware/teacher_vy_neg_0p6.jpg",
+      "duration": 7.637,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2458117,
+      "poster_time": 3.8185
+    },
+    {
+      "id": "teacher_vy_neg_0p8",
+      "policy": "teacher",
+      "group": "lateral",
+      "label": "Teacher | Lateral: vy = -0.8 m/s",
+      "command": {
+        "vy": -0.8
+      },
+      "source_name": "vy=-0.8.mp4",
+      "src": "hzd/hardware/teacher_vy_neg_0p8.mp4",
+      "poster": "hzd/hardware/teacher_vy_neg_0p8.jpg",
+      "duration": 20.608,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 1882109,
+      "poster_time": 10.304
+    },
+    {
+      "id": "teacher_vy_pos_0p4",
+      "policy": "teacher",
+      "group": "lateral",
+      "label": "Teacher | Lateral: vy = +0.4 m/s",
+      "command": {
+        "vy": 0.4
+      },
+      "source_name": "vy=+0.4.mp4",
+      "src": "hzd/hardware/teacher_vy_pos_0p4.mp4",
+      "poster": "hzd/hardware/teacher_vy_pos_0p4.jpg",
+      "duration": 17.514,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5630391,
+      "poster_time": 8.757
+    },
+    {
+      "id": "teacher_vy_pos_0p6",
+      "policy": "teacher",
+      "group": "lateral",
+      "label": "Teacher | Lateral: vy = +0.6 m/s",
+      "command": {
+        "vy": 0.6
+      },
+      "source_name": "vy=+0.6.mp4",
+      "src": "hzd/hardware/teacher_vy_pos_0p6.mp4",
+      "poster": "hzd/hardware/teacher_vy_pos_0p6.jpg",
+      "duration": 7.168,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2531800,
+      "poster_time": 3.584
+    },
+    {
+      "id": "teacher_vy_pos_0p8",
+      "policy": "teacher",
+      "group": "lateral",
+      "label": "Teacher | Lateral: vy = +0.8 m/s",
+      "command": {
+        "vy": 0.8
+      },
+      "source_name": "vy=0.8.mp4",
+      "src": "hzd/hardware/teacher_vy_pos_0p8.mp4",
+      "poster": "hzd/hardware/teacher_vy_pos_0p8.jpg",
+      "duration": 6.016,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 2408285,
+      "poster_time": 3.008
+    },
+    {
+      "id": "teacher_wz_pos_0p4",
+      "policy": "teacher",
+      "group": "turning",
+      "label": "Teacher | Turning: wz = +0.4 rad/s",
+      "command": {
+        "wz": 0.4
+      },
+      "source_name": "wz=0.4.mp4",
+      "src": "hzd/hardware/teacher_wz_pos_0p4.mp4",
+      "poster": "hzd/hardware/teacher_wz_pos_0p4.jpg",
+      "duration": 17.536,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5430250,
+      "poster_time": 8.768
+    },
+    {
+      "id": "teacher_wz_pos_0p6",
+      "policy": "teacher",
+      "group": "turning",
+      "label": "Teacher | Turning: wz = +0.6 rad/s",
+      "command": {
+        "wz": 0.6
+      },
+      "source_name": "wz=0.6.mp4",
+      "src": "hzd/hardware/teacher_wz_pos_0p6.mp4",
+      "poster": "hzd/hardware/teacher_wz_pos_0p6.jpg",
+      "duration": 15.637,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 4394124,
+      "poster_time": 7.8185
+    },
+    {
+      "id": "teacher_wz_pos_0p8",
+      "policy": "teacher",
+      "group": "turning",
+      "label": "Teacher | Turning: wz = +0.8 rad/s",
+      "command": {
+        "wz": 0.8
+      },
+      "source_name": "wz=0.8.mp4",
+      "src": "hzd/hardware/teacher_wz_pos_0p8.mp4",
+      "poster": "hzd/hardware/teacher_wz_pos_0p8.jpg",
+      "duration": 6.442,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 1984229,
+      "poster_time": 3.221
+    },
+    {
+      "id": "teacher_t_0p5",
+      "policy": "teacher",
+      "group": "cadence",
+      "label": "Teacher | Period: T = 0.5 s",
+      "command": {
+        "period": 0.5
+      },
+      "source_name": "T=0.5.mp4",
+      "src": "hzd/hardware/teacher_t_0p5.mp4",
+      "poster": "hzd/hardware/teacher_t_0p5.jpg",
+      "duration": 13.653,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5138508,
+      "poster_time": 6.8265
+    },
+    {
+      "id": "teacher_t_0p8",
+      "policy": "teacher",
+      "group": "cadence",
+      "label": "Teacher | Period: T = 0.8 s",
+      "command": {
+        "period": 0.8
+      },
+      "source_name": "T=0.8.mp4",
+      "src": "hzd/hardware/teacher_t_0p8.mp4",
+      "poster": "hzd/hardware/teacher_t_0p8.jpg",
+      "duration": 13.867,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5655986,
+      "poster_time": 6.9335
+    },
+    {
+      "id": "teacher_t_1p0",
+      "policy": "teacher",
+      "group": "cadence",
+      "label": "Teacher | Period: T = 1 s",
+      "command": {
+        "period": 1.0
+      },
+      "source_name": "T=1.mp4",
+      "src": "hzd/hardware/teacher_t_1p0.mp4",
+      "poster": "hzd/hardware/teacher_t_1p0.jpg",
+      "duration": 14.848,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5321102,
+      "poster_time": 7.424
+    },
+    {
+      "id": "teacher_h_0p6_t_0p6",
+      "policy": "teacher",
+      "group": "height",
+      "label": "Teacher | Torso height: H = 0.6 m, T = 0.6 s",
+      "command": {
+        "torso_height": 0.6,
+        "period": 0.6
+      },
+      "source_name": "H_06_T_06.mp4",
+      "src": "hzd/hardware/teacher_h_0p6_t_0p6.mp4",
+      "poster": "hzd/hardware/teacher_h_0p6_t_0p6.jpg",
+      "duration": 13.845,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 4478396,
+      "poster_time": 6.9225
+    },
+    {
+      "id": "teacher_h_0p6_t_1p0",
+      "policy": "teacher",
+      "group": "height",
+      "label": "Teacher | Torso height: H = 0.6 m, T = 1 s",
+      "command": {
+        "torso_height": 0.6,
+        "period": 1.0
+      },
+      "source_name": "H_06_T_1.mp4",
+      "src": "hzd/hardware/teacher_h_0p6_t_1p0.mp4",
+      "poster": "hzd/hardware/teacher_h_0p6_t_1p0.jpg",
+      "duration": 14.208,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 3845852,
+      "poster_time": 7.104
     }
   ],
   "command_units": {
@@ -366,6 +684,6 @@
     "cadence": "hzd/hardware/review-cadence.jpg"
   },
   "inspection": "hzd/hardware/inspection.json",
-  "total_duration": 303.441,
-  "total_video_bytes": 100278204
+  "total_duration": 514.423,
+  "total_video_bytes": 155146895
 }

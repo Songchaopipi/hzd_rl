@@ -3,7 +3,19 @@ import { ArrowDown, Maximize2 } from 'lucide-react'
 import { assetUrl } from '../lib/assetUrl'
 import { DataState, Tabs, useJson } from './shared'
 
-type Video = { id: string; group: string; src: string; poster: string; label: string; duration: number; width: number; height: number; source_name: string }
+type Video = {
+  id: string
+  policy?: 'teacher' | 'tube'
+  group: string
+  src: string
+  poster: string
+  label: string
+  duration: number
+  width: number
+  height: number
+  source_name: string
+  command?: Record<string, number | number[] | string>
+}
 const GROUPS = [
   { value: 'forward', label: 'Forward & reverse' }, { value: 'lateral', label: 'Lateral' },
   { value: 'turning', label: 'Turning' }, { value: 'cadence', label: 'Gait period' },
@@ -30,11 +42,12 @@ export function Hardware() {
   const [group, setGroup] = useState('forward')
   const [speed, setSpeed] = useState('0.4')
   const all = request.data?.videos ?? []
-  const tube = all.filter(video => video.group !== 'teacher')
-  const teacher = all.filter(video => video.group === 'teacher')
-  const category = tube.filter(video => video.group === group)
-  const videos = mode === 'teacher' ? teacher : group === 'forward'
-    ? category.filter(video => video.source_name.startsWith(`vx_${speed === '0.4' ? '04' : speed === '0.8' ? '08' : '1'}_`))
+  const tube = all.filter(video => video.policy === 'tube' || (!video.policy && video.group !== 'teacher'))
+  const teacher = all.filter(video => video.policy === 'teacher' || (!video.policy && video.group === 'teacher'))
+  const cohort = mode === 'teacher' ? teacher : tube
+  const category = cohort.filter(video => video.group === group)
+  const videos = group === 'forward'
+    ? category.filter(video => Math.abs(Number(video.command?.vx)) === Number(speed))
     : category
   const pauseVideos = () => document.querySelectorAll<HTMLVideoElement>('#hardware video').forEach(video => video.pause())
   return <section id="hardware" className={`hardware-band hardware-band--${mode}`}>
@@ -44,8 +57,8 @@ export function Hardware() {
         { value: 'teacher', label: request.data ? `Teacher baseline (${teacher.length})` : 'Teacher baseline' },
         { value: 'tube', label: request.data ? `HZD-Tube (${tube.length})` : 'HZD-Tube' },
       ]} value={mode} onChange={value => { pauseVideos(); setMode(value === 'teacher' ? 'teacher' : 'tube') }}/><span>Unitree G1 / 29 DoF</span></div>
-      {mode === 'tube' && <div className="hardware-toolbar"><Tabs label="HZD-Tube experiments" options={GROUPS} value={group} onChange={value => { pauseVideos(); setGroup(value) }}/></div>}
-      {mode === 'tube' && group === 'forward' && <div className="hardware-speeds"><span>Command magnitude</span><Tabs label="Forward speed" options={['0.4', '0.8', '1.0'].map(value => ({ value, label: `${value} m/s` }))} value={speed} onChange={setSpeed}/></div>}
+      <div className="hardware-toolbar"><Tabs label={`${mode === 'teacher' ? 'Teacher' : 'HZD-Tube'} experiments`} options={GROUPS} value={group} onChange={value => { pauseVideos(); setGroup(value) }}/></div>
+      {group === 'forward' && <div className="hardware-speeds"><span>Command magnitude</span><Tabs label="Forward speed" options={['0.4', '0.8', '1.0'].map(value => ({ value, label: `${value} m/s` }))} value={speed} onChange={setSpeed}/></div>}
       {!request.data ? <DataState {...request}/> : <div className={`recordings-grid ${videos.length === 2 ? 'recordings-pair' : ''}`}>{videos.map(video => <Recording key={video.id} video={video} featured={videos.length === 2}/>)}</div>}
       <div className="hardware-footnote"><p>Commanded values, not measured velocities. Original lab footage, including visible operator contact.</p><span>{request.data?.videos.length ?? 0} total recordings</span></div>
     </div>

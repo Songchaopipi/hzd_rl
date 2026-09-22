@@ -24,7 +24,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 WEB = Path(__file__).resolve().parents[1]
 OUTPUT = WEB / "public/hzd/hardware"
 PUBLIC_PREFIX = "hzd/hardware/"
-GROUPS = ("forward", "lateral", "turning", "cadence")
+GROUPS = ("forward", "lateral", "turning", "cadence", "height")
 SAMPLE_FRACTIONS = (0.1, 0.3, 0.5, 0.7, 0.9)
 # Selected from the temporal sheets to keep the robot visible in each poster.
 POSTER_FRACTIONS = {
@@ -38,7 +38,44 @@ POSTER_FRACTIONS = {
 }
 
 
-def describe_filename(name):
+def _compact_number(token):
+    return float("0." + token[1:]) if token.startswith("0") and len(token) > 1 else float(token)
+
+
+def _teacher_id(key, value):
+    sign = "neg" if value < 0 else "pos"
+    magnitude = f"{abs(value):g}".replace(".", "p")
+    return f"teacher_{key}_{sign}_{magnitude}"
+
+
+def describe_filename(name, policy="tube"):
+    if policy == "teacher":
+        match = re.fullmatch(r"(vx|vy|wz)=([+-]?\d+(?:\.\d+)?)\.mp4", name, re.IGNORECASE)
+        if match:
+            key, value = match.group(1).lower(), float(match.group(2))
+            group = {"vx": "forward", "vy": "lateral", "wz": "turning"}[key]
+            unit = "rad/s" if key == "wz" else "m/s"
+            motion = (("Forward" if value > 0 else "Backward") if key == "vx"
+                      else {"vy": "Lateral", "wz": "Turning"}[key])
+            return dict(id=_teacher_id(key, value), policy="teacher", group=group,
+                        label=f"Teacher | {motion}: {key} = {value:+g} {unit}",
+                        command={key: value}, source_name=name)
+        match = re.fullmatch(r"t=([0-9]+(?:\.[0-9]+)?)\.mp4", name, re.IGNORECASE)
+        if match:
+            value = float(match.group(1))
+            return dict(id=f"teacher_t_{str(value).replace('.', 'p')}", policy="teacher",
+                        group="cadence", label=f"Teacher | Period: T = {value:g} s",
+                        command={"period": value}, source_name=name)
+        match = re.fullmatch(r"h_(\d+)_t_(\d+)\.mp4", name, re.IGNORECASE)
+        if match:
+            height, period = (_compact_number(token) for token in match.groups())
+            return dict(id=f"teacher_h_{str(height).replace('.', 'p')}_t_{str(period).replace('.', 'p')}",
+                        policy="teacher", group="height",
+                        label=f"Teacher | Torso height: H = {height:g} m, T = {period:g} s",
+                        command={"torso_height": height, "period": period}, source_name=name)
+        raise ValueError(f"Unrecognized Teacher filename; refusing to guess commands: {name}")
+    if policy != "tube":
+        raise ValueError(f"Unknown hardware policy: {policy}")
     patterns = (
         ("forward", "vx", r"vx_(\d+)_(?:hzd(?P<tail>_neg)?|(?P<head>neg)_hzd)\.mp4"),
         ("lateral", "vy", r"vy_(\d+)_hzd_pos_neg\.mp4"),
@@ -50,7 +87,7 @@ def describe_filename(name):
         if not match:
             continue
         token = match.group(1)
-        magnitude = float("0." + token[1:]) if token.startswith("0") and len(token) > 1 else float(token)
+        magnitude = _compact_number(token)
         if magnitude <= 0:
             raise ValueError(f"Command magnitude must be positive: {name}")
         value = magnitude
@@ -67,7 +104,7 @@ def describe_filename(name):
             unit = "rad/s" if group == "turning" else "m/s"
             direction = "Turning" if group == "turning" else ("Forward" if value > 0 else "Backward")
             label = f"{direction} command: {key} = {value:+g} {unit}"
-        return dict(id=Path(name).stem.lower(), group=group, label=label,
+        return dict(id=Path(name).stem.lower(), policy="tube", group=group, label=label,
                     command=command, source_name=name)
     raise ValueError(f"Unrecognized hardware filename; refusing to guess commands: {name}")
 
@@ -196,7 +233,7 @@ def prepare_directory(source, output=OUTPUT):
                    key=lambda p: p.name.lower())
     if not paths:
         raise ValueError(f"No MP4 sources found in {source}")
-    described = [(path, describe_filename(path.name)) for path in paths]
+    described = [(path, describe_filename(path.name, policy="tube")) for path in paths]
     described.sort(key=lambda pair: (GROUPS.index(pair[1]["group"]), pair[1]["id"]))
     if len({entry["id"] for _, entry in described}) != len(described):
         raise ValueError("Source filenames produce duplicate IDs")
@@ -265,12 +302,101 @@ def prepare_directory(source, output=OUTPUT):
     return manifest
 
 
+def prepare_teacher_directory(source, output=OUTPUT):
+    """Replace only Teacher recordings while preserving all published Tube assets."""
+    source, output = Path(source).resolve(), Path(output).resolve()
+    manifest_path, inspection_path = output / "manifest.json", output / "inspection.json"
+    if not manifest_path.is_file() or not inspection_path.is_file():
+        raise ValueError("Publish the Tube hardware bundle before merging Teacher recordings")
+    paths = sorted(source.glob("*.mp4"), key=lambda path: path.name.lower())
+    described = [(path, describe_filename(path.name, policy="teacher")) for path in paths]
+    described.sort(key=lambda pair: (GROUPS.index(pair[1]["group"]), pair[1]["id"]))
+    if not described:
+        raise ValueError(f"No Teacher MP4 sources found in {source}")
+    if len({entry["id"] for _, entry in described}) != len(described):
+        raise ValueError("Teacher filenames produce duplicate IDs")
+
+    previous_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    old_teacher = [entry for entry in previous_manifest["videos"]
+                   if entry.get("policy") == "teacher" or entry.get("group") == "teacher"]
+    retained = [entry for entry in previous_manifest["videos"] if entry not in old_teacher]
+    for entry in retained:
+        entry["policy"] = "tube"
+    previous_inspection = json.loads(inspection_path.read_text(encoding="utf-8"))
+    old_names = {entry["source_name"] for entry in old_teacher}
+    retained_inspections = [entry for entry in previous_inspection.get("videos", [])
+                            if entry.get("source_name") not in old_names]
+
+    entries, inspections = [], []
+    with tempfile.TemporaryDirectory(prefix=".prepare-teacher-", dir=output) as temporary:
+        staging = Path(temporary)
+        for path, entry in described:
+            print(f"Preparing Teacher {path.name}", flush=True)
+            before_hash, before_mtime = sha256(path), path.stat().st_mtime_ns
+            original = probe(path)
+            original_video = compatible_video(original)
+            destination = staging / (entry["id"] + ".mp4")
+            run(["ffmpeg", "-v", "error", "-nostdin", "-i", path, "-map", "0",
+                 "-c", "copy", "-movflags", "+faststart", destination])
+            processed = probe(destination)
+            video = compatible_video(processed)
+            if any(original_video.get(field) != video.get(field)
+                   for field in ("width", "height", "pix_fmt", "nb_frames", "sample_aspect_ratio")):
+                raise RuntimeError(f"Remux changed video geometry or frame count: {path.name}")
+            duration = float(processed["format"]["duration"])
+            if abs(duration - float(original["format"]["duration"])) > 0.05:
+                raise RuntimeError(f"Remux changed duration: {path.name}")
+            source_streams, output_streams = stream_hashes(path), stream_hashes(destination)
+            if source_streams != output_streams or not is_faststart(destination):
+                raise RuntimeError(f"Remux payload/faststart verification failed: {path.name}")
+            run(["ffmpeg", "-v", "error", "-xerror", "-nostdin", "-err_detect", "explode",
+                 "-threads", "2", "-i", destination, "-map", "0", "-f", "null", "-"])
+            poster_name = entry["id"] + ".jpg"
+            poster_time = round(duration * 0.5, 6)
+            frame_at(destination, poster_time).save(staging / poster_name, quality=90)
+            entry.update(src=PUBLIC_PREFIX + destination.name, poster=PUBLIC_PREFIX + poster_name,
+                         duration=duration, width=video["width"], height=video["height"],
+                         size_bytes=destination.stat().st_size, poster_time=poster_time)
+            entries.append(entry)
+            if before_hash != sha256(path) or before_mtime != path.stat().st_mtime_ns:
+                raise RuntimeError(f"Source changed during preparation: {path.name}")
+            inspections.append(dict(policy="teacher", source_name=path.name,
+                                    source_sha256=before_hash, source_mtime_ns=before_mtime,
+                                    output_sha256=sha256(destination), source_unchanged=True,
+                                    stream_payloads_identical=True, faststart=True, full_decode_ok=True,
+                                    stream_hashes=output_streams, source_probe=original,
+                                    output_probe=processed))
+
+        videos = retained + entries
+        manifest = {**previous_manifest, "schema_version": 2, "videos": videos,
+                    "total_duration": round(sum(entry["duration"] for entry in videos), 6),
+                    "total_video_bytes": sum(entry["size_bytes"] for entry in videos)}
+        manifest.setdefault("command_units", {})["torso_height"] = "m"
+        inspection = {**previous_inspection, "videos": retained_inspections + inspections}
+        (staging / "inspection.json").write_text(
+            json.dumps(inspection, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+        (staging / "manifest.json").write_text(
+            json.dumps(manifest, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
+        for entry in old_teacher:
+            for key in ("src", "poster"):
+                artifact = output / Path(entry[key]).name
+                if artifact.exists():
+                    artifact.unlink()
+        for artifact in sorted(staging.iterdir(), key=lambda path: path.name == "manifest.json"):
+            artifact.replace(output / artifact.name)
+    return manifest
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=Path.home() / "\u89c6\u9891/hzd")
+    parser.add_argument("--teacher-source", type=Path,
+                        help="Merge Teacher recordings without replacing published Tube videos")
     parser.add_argument("--output", type=Path, default=OUTPUT)
     args = parser.parse_args()
-    manifest = prepare_directory(args.source, args.output)
+    manifest = (prepare_teacher_directory(args.teacher_source, args.output)
+                if args.teacher_source else prepare_directory(args.source, args.output))
     print(f"Prepared {len(manifest['videos'])} videos, {manifest['total_duration']:.2f} s, "
           f"{manifest['total_video_bytes'] / 1024 ** 2:.2f} MiB in {args.output}")
 

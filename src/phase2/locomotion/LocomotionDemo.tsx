@@ -233,7 +233,10 @@ export function LocomotionDemo({ scenario, label, policyLabels, initialCommand, 
           return (
             <section key={label} className={`locomotion-world locomotion-world--${index === 0 ? 'teacher' : 'tube'}`} aria-label={label}>
               <div className="locomotion-world-heading">
-                <h3>{label}</h3>
+                <div className="locomotion-world-identity">
+                  <span className="locomotion-policy-role">{index === 0 ? 'TEACHER / BASELINE' : 'HZD-TUBE / OURS'}</span>
+                  <h3>{label}</h3>
+                </div>
                 <span className={robot?.fallen ? 'locomotion-fallen' : 'locomotion-world-state'} role="status">
                   {robot ? robot.fallen ? 'Fallen' : 'Upright' : 'No measurement'}
                 </span>

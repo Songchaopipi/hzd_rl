@@ -21,7 +21,7 @@ export function App() {
           <div className="project-actions">
             <a href="#framework">Explore the framework <ArrowDownRight size={18}/></a>
             <button className="code-release" type="button" disabled aria-disabled="true" title="Code will be released upon paper acceptance">
-              <Code2 size={17}/><span><b>Code</b><small>Coming soon</small></span>
+              <Code2 size={20}/><span><b>Code</b><small>Coming soon</small></span>
             </button>
           </div>
         </div>

@@ -7,6 +7,13 @@ REPO = WEB.parent
 
 
 class AssetTests(unittest.TestCase):
+    def test_homepage_marks_code_release_as_coming_after_acceptance(self):
+        app = (WEB / "src/App.tsx").read_text()
+        self.assertIn("Code", app)
+        self.assertIn("Coming soon", app)
+        self.assertIn("Code will be released upon paper acceptance", app)
+        self.assertIn('aria-disabled="true"', app)
+
     def test_bundle_preserves_native_contract(self):
         spec = importlib.util.spec_from_file_location("prepare_assets", WEB / "scripts/prepare_assets.py")
         self.assertTrue(Path(spec.origin).is_file(), "asset packer must exist")

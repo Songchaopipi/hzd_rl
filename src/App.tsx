@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, Code2 } from 'lucide-react'
 import LocomotionGallery from './phase2/locomotion/LocomotionGallery'
 import { assetUrl } from './lib/assetUrl'
 import { Hardware } from './research/Hardware'
@@ -16,7 +16,15 @@ export function App() {
       <section className="project-heading page-width">
         <p className="eyebrow">Research project / Robotics &amp; Learning</p>
         <h1>Revealing Hybrid Zero-Dynamics Structure in Reinforcement Learning Policies for Humanoid Locomotion</h1>
-        <div className="project-intro"><p>From learned periodic orbits to whole-body locomotion.</p><a href="#framework">Explore the framework <ArrowDownRight size={18}/></a></div>
+        <div className="project-intro">
+          <p>From learned periodic orbits to whole-body locomotion.</p>
+          <div className="project-actions">
+            <a href="#framework">Explore the framework <ArrowDownRight size={18}/></a>
+            <button className="code-release" type="button" disabled aria-disabled="true" title="Code will be released upon paper acceptance">
+              <Code2 size={17}/><span><b>Code</b><small>Coming soon</small></span>
+            </button>
+          </div>
+        </div>
       </section>
       <Hardware />
       <section id="abstract" className="abstract-section page-width">

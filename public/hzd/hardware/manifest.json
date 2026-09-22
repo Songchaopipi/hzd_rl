@@ -249,20 +249,114 @@
       "height": 544,
       "size_bytes": 8476218,
       "poster_time": 18.752
+    },
+    {
+      "id": "vary_height_06_t_06_hzd",
+      "group": "height",
+      "label": "Torso height command: H = 0.6 m, T = 0.6 s",
+      "command": {
+        "torso_height": 0.6,
+        "period": 0.6
+      },
+      "source_name": "vary_height_06_T_06_hzd.mp4",
+      "src": "hzd/hardware/vary_height_06_T_06_hzd.mp4",
+      "poster": "hzd/hardware/vary_height_06_t_06_hzd.jpg",
+      "duration": 12.502,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 7364607,
+      "poster_time": 6.25
+    },
+    {
+      "id": "vary_height_h_06_t1_hzd",
+      "group": "height",
+      "label": "Torso height command: H = 0.6 m, T = 1 s",
+      "command": {
+        "torso_height": 0.6,
+        "period": 1.0
+      },
+      "source_name": "vary_height_h_06_T1_hzd.mp4",
+      "src": "hzd/hardware/vary_height_h_06_T1_hzd.mp4",
+      "poster": "hzd/hardware/vary_height_h_06_t1_hzd.jpg",
+      "duration": 31.979,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 15872513,
+      "poster_time": 15.99
+    },
+    {
+      "id": "vary_height_lateral_hzd",
+      "group": "height",
+      "label": "Variable-height lateral and turning walk",
+      "command": {
+        "note": "turning and lateral"
+      },
+      "source_name": "vary_height_lateral_hzd.mp4",
+      "src": "hzd/hardware/vary_height_lateral_hzd.mp4",
+      "poster": "hzd/hardware/vary_height_lateral_hzd.jpg",
+      "duration": 12.544,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 7039581,
+      "poster_time": 6.27
+    },
+    {
+      "id": "teacher_backward",
+      "group": "teacher",
+      "label": "Teacher demonstration 1",
+      "command": {},
+      "source_name": "TEACHER_backward.mp4",
+      "src": "hzd/hardware/teacher_backward.mp4",
+      "poster": "hzd/hardware/teacher_backward.jpg",
+      "duration": 10.006,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5208188,
+      "poster_time": 5.0
+    },
+    {
+      "id": "teacher_h_06",
+      "group": "teacher",
+      "label": "Teacher demonstration 2",
+      "command": {},
+      "source_name": "teacher_h_06.mp4",
+      "src": "hzd/hardware/teacher_h_06.mp4",
+      "poster": "hzd/hardware/teacher_h_06.jpg",
+      "duration": 6.848,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 4163984,
+      "poster_time": 3.4
+    },
+    {
+      "id": "teacher_h_06_alt",
+      "group": "teacher",
+      "label": "Teacher demonstration 3",
+      "command": {},
+      "source_name": "teacher_h_06_.mp4",
+      "src": "hzd/hardware/teacher_h_06_alt.mp4",
+      "poster": "hzd/hardware/teacher_h_06_alt.jpg",
+      "duration": 9.6,
+      "width": 1280,
+      "height": 720,
+      "size_bytes": 5392508,
+      "poster_time": 4.8
     }
   ],
   "command_units": {
     "vx": "m/s",
     "vy": "m/s",
     "wz": "rad/s",
-    "period": "s"
+    "period": "s",
+    "torso_height": "m"
   },
   "command_semantics": {
     "source": "Filename labels denote commanded values, not measured motion.",
     "arrays": "A numeric array lists commands represented in the clip, not their order or timing.",
     "lateral": "pos_neg means both directions; per-frame commands are unavailable.",
     "unspecified": "Omitted command components are unknown, not assumed zero.",
-    "period": "T denotes the commanded gait period in seconds, not measured cadence."
+    "period": "T denotes the commanded gait period in seconds, not measured cadence.",
+    "torso_height": "Torso height denotes the commanded height in meters, not measured height."
   },
   "contact_sheet": "hzd/hardware/contact-sheet.jpg",
   "review_sheets": {
@@ -272,6 +366,6 @@
     "cadence": "hzd/hardware/review-cadence.jpg"
   },
   "inspection": "hzd/hardware/inspection.json",
-  "total_duration": 219.962,
-  "total_video_bytes": 55236823
+  "total_duration": 303.441,
+  "total_video_bytes": 100278204
 }

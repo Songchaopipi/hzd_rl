@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), {
     name: 'hzd-public-assets',
     async writeBundle() {
-      for (const dir of ['hzd', 'models/locomotion']) {
+      for (const dir of ['hzd', 'models/locomotion', 'models/h1', 'models/t1']) {
         const target = resolve('dist', dir)
         await mkdir(target, { recursive: true })
         await cp(resolve('public', dir), target, { recursive: true })

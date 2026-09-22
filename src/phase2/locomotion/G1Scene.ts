@@ -124,7 +124,17 @@ export class G1Scene {
         if (!response.ok) throw new Error(`STL fetch failed (${response.status}): ${url}`)
         const buffer = await response.arrayBuffer()
         signal.throwIfAborted()
-        const geometry = loader.parse(buffer)
+        if (name === 'pelvis' || name === 'Trunk') {
+          const view = new DataView(buffer)
+          console.log(`[G1Scene] ${name} url=${url} bytes=${buffer.byteLength} faces=${view.getUint32(80, true)} status=${response.status} ok=${response.ok}`)
+        }
+        let geometry: THREE.BufferGeometry
+        try {
+          geometry = loader.parse(buffer)
+        } catch (error) {
+          console.error(`[G1Scene] failed to parse ${name}`, error)
+          throw new Error(`STL parse failed for ${name}: ${error instanceof Error ? error.message : String(error)}`)
+        }
         model.geometries.set(name, geometry)
         geometry.computeBoundingBox()
         geometry.computeBoundingSphere()

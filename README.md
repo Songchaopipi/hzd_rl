@@ -1,9 +1,8 @@
 # HZD 网页演示
 
-两个独立的 MuJoCo 世界并排运行 WBO5 Teacher / HZD-Tube，同步接收
-`[vx, vy, wz, T, torso_height]`。没有 swing-height command。
+三个机器人场景可切换：G1 WBO5、H1-2 和 Booster T1。每个场景的两个独立 MuJoCo 世界并排运行 Teacher / HZD-Tube，同步接收指令。G1、H1-2 使用 `[vx, vy, wz, T, torso_height]`，T1 使用 `[vx, vy, wz]`。没有 swing-height command。
 原 FADA 内容不再由主页引用，也不会打包到新的 dist 中。
-已接入 15 段硬件视频和可交互实验图，内容与数据来源见 `WEB_DRAFT.md`。
+已接入 21 段硬件视频（含 3 段变高度实验）和可交互实验图，内容与数据来源见 `WEB_DRAFT.md`。
 
 ## 公开发布
 

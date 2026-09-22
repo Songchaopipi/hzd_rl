@@ -1,4 +1,4 @@
-export type Command = [number, number, number, number, number]
+export type Command = number[]
 export type Vec3 = [number, number, number]
 export interface Visual {
   body: number
@@ -19,23 +19,43 @@ export interface DeployConfig {
   joints: { name: string; qpos: number; dof: number }[]
 }
 export interface PolicyAsset {
-  id: 'teacher' | 'tube'
+  id: string
   label: string
   onnx: string
   sha256: string
   config: DeployConfig
-  source: string
+  source?: string
 }
+
+export interface CommandField {
+  label: string
+  unit: string
+  min: number
+  max: number
+  step: number
+}
+
 export interface Manifest {
+  id?: string
+  label?: string
   model_sha256: string
   contract: string
   physics_dt: number
-  native_version: string
+  step_dt?: number
+  decimation?: number
+  obs_dim?: number
+  action_dim?: number
+  command_kind?: '3cmd' | '5cmd'
+  action_kind?: 'position' | 'effort_pd'
+  native_version?: string
   command_ranges: [number, number][]
+  command_defaults?: number[]
   model: string
   meshes: string[]
   visuals: Visual[]
   torso_body: number
+  force_body?: number
+  fallen_height?: number
   policies: PolicyAsset[]
 }
 export interface RobotFrame {

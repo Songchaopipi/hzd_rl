@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { ArrowDown, Film, Maximize2 } from 'lucide-react'
+import { ArrowDown, Maximize2 } from 'lucide-react'
 import { assetUrl } from '../lib/assetUrl'
 import { DataState, Tabs, useJson } from './shared'
 
@@ -7,6 +7,7 @@ type Video = { id: string; group: string; src: string; poster: string; label: st
 const GROUPS = [
   { value: 'forward', label: 'Forward & reverse' }, { value: 'lateral', label: 'Lateral' },
   { value: 'turning', label: 'Turning' }, { value: 'cadence', label: 'Gait period' },
+  { value: 'height', label: 'Torso height' }, { value: 'teacher', label: 'Teacher' },
 ]
 
 function Recording({ video, featured = false }: { video: Video; featured?: boolean }) {
@@ -35,11 +36,10 @@ export function Hardware() {
       <div className="hardware-toolbar"><Tabs label="Hardware experiments" options={GROUPS} value={group} onChange={value => {
         document.querySelectorAll<HTMLVideoElement>('#hardware video').forEach(video => video.pause())
         setGroup(value)
-      }}/><div className="hardware-policy">HZD Orbit-Tube <span>Unitree G1 / 29 DoF</span></div></div>
+      }}/><div className="hardware-policy">{group === 'teacher' ? 'Teacher' : 'HZD Orbit-Tube'} <span>Unitree G1 / 29 DoF</span></div></div>
       {group === 'forward' && <div className="hardware-speeds"><span>Command magnitude</span><Tabs label="Forward speed" options={['0.4', '0.8', '1.0'].map(value => ({ value, label: `${value} m/s` }))} value={speed} onChange={setSpeed}/></div>}
       {!request.data ? <DataState {...request}/> : <div className={`recordings-grid ${videos.length === 2 ? 'recordings-pair' : ''}`}>{videos.map(video => <Recording key={video.id} video={video} featured={videos.length === 2}/>)}</div>}
-      <div className="hardware-footnote"><p>Commanded values, not measured velocities. Original lab footage, including visible operator contact.</p><span>{request.data?.videos.length || 15} recordings</span></div>
-      <div id="recordings-pending" className="recordings-pending"><div><Film size={21}/><div><h3>Variable torso height</h3><p>Torso height sweep recordings to follow.</p></div><span>Pending</span></div><div><Film size={21}/><div><h3>Teacher demonstrations</h3><p>Selected reference clips to follow.</p></div><span>Pending</span></div></div>
+      <div className="hardware-footnote"><p>Commanded values, not measured velocities. Original lab footage, including visible operator contact.</p><span>{request.data?.videos.length ?? 0} recordings</span></div>
     </div>
   </section>
 }

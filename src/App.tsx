@@ -1,5 +1,5 @@
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
-import { LocomotionDemo } from './phase2/locomotion/LocomotionDemo'
+import LocomotionGallery from './phase2/locomotion/LocomotionGallery'
 import { assetUrl } from './lib/assetUrl'
 import { Hardware } from './research/Hardware'
 import { Evidence } from './research/Evidence'
@@ -30,8 +30,8 @@ export function App() {
       </section>
       <section id="simulation" className="simulation-band"><div className="page-width research-section">
         <SectionHeading number="02" eyebrow="Live simulation" title="Teacher and Orbit-Tube, side by side"><p>Independent MuJoCo worlds, identical commands and applied forces.</p></SectionHeading>
-        <LocomotionDemo />
-        <p className="cohort-note">WBO5 deployment policies. The paper experiments below use their separately documented historical checkpoints.</p>
+        <LocomotionGallery />
+        <p className="cohort-note">G1 uses the WBO5 deployment pair. H1-2 and Booster T1 use their own trained Teacher and HZD-Tube checkpoints. Paper figures below use separately documented experimental checkpoints.</p>
       </div></section>
       <section id="evidence" className="page-width evidence-intro">
         <SectionHeading number="03" eyebrow="Experimental evidence" title="From orbit structure to physical recovery"><p>Model-space geometry, policy tracking and physical perturbation trials provide complementary empirical evidence.</p></SectionHeading>

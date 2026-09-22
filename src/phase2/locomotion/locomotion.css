@@ -14,6 +14,32 @@
   letter-spacing: 0;
 }
 
+.locomotion-gallery { width: 100%; min-width: 0; }
+.locomotion-scenarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 14px 0 2px;
+}
+.locomotion-scenario {
+  min-height: 34px;
+  padding: 6px 14px;
+  border: 1px solid #c9d3d7;
+  border-radius: 999px;
+  background: #fff;
+  color: #33434a;
+  cursor: pointer;
+  font: inherit;
+}
+.locomotion-scenario:hover { background: #eef2f3; border-color: #89999f; }
+.locomotion-scenario.is-active {
+  background: #197d84;
+  border-color: #197d84;
+  color: #fff;
+  font-weight: 650;
+}
+.locomotion-scenario:focus-visible { outline: 2px solid #197d84; outline-offset: 3px; }
+
 .locomotion-demo *,
 .locomotion-demo *::before,
 .locomotion-demo *::after { box-sizing: border-box; letter-spacing: 0; }
@@ -83,6 +109,7 @@
 .locomotion-demo .locomotion-command,
 .locomotion-demo .locomotion-push { padding: 18px 0 20px; border-top: 1px solid var(--loc-rule); }
 .locomotion-demo .locomotion-command-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; margin-top: 16px; }
+.locomotion-demo .locomotion-command-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .locomotion-demo .locomotion-control { display: grid; grid-template-columns: minmax(0, 1fr) 76px; align-items: center; gap: 10px 8px; min-width: 0; }
 .locomotion-demo .locomotion-control label { font-size: 13px; overflow-wrap: anywhere; }
 .locomotion-demo .locomotion-control label span { display: block; font-size: 11px; color: var(--loc-muted); }

@@ -2,21 +2,21 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { LoaderCircle, Pause, Play, RotateCcw, Square, Wind } from 'lucide-react'
 import type { LocomotionController } from './LocomotionController'
-import type { Command, LiveState, Vec3 } from './types'
+import type { Command, CommandField, LiveState, Vec3 } from './types'
 import './locomotion.css'
 
-const DEFAULT_COMMAND: Command = [0.4, 0, 0, 0.8, 0.75]
-const COMMAND_FIELDS = [
-  { label: 'vx', unit: 'm/s', min: -1, max: 2, step: 0.1 },
-  { label: 'vy', unit: 'm/s', min: -1, max: 1, step: 0.1 },
-  { label: 'wz', unit: 'rad/s', min: -1, max: 1, step: 0.1 },
-  { label: 'T', unit: 's', min: 0.5, max: 1, step: 0.05 },
-  { label: 'Torso height', unit: 'm', min: 0.6, max: 0.85, step: 0.01 },
-] as const
 const DIRECTIONS: Record<string, Vec3> = {
   '+X': [1, 0, 0], '-X': [-1, 0, 0], '+Y': [0, 1, 0], '-Y': [0, -1, 0],
 }
 type Phase = 'idle' | 'loading' | 'ready' | 'resetting' | 'failed'
+
+export interface LocomotionDemoProps {
+  scenario: string
+  label: string
+  policyLabels: [string, string]
+  initialCommand: Command
+  commandFields: CommandField[]
+}
 
 function message(error: unknown): string {
   return error instanceof Error ? error.message : String(error)
@@ -60,7 +60,7 @@ function NumericControl({ label, unit, min, max, step, value, disabled, onChange
   )
 }
 
-export function LocomotionDemo() {
+export function LocomotionDemo({ scenario, label, policyLabels, initialCommand, commandFields }: LocomotionDemoProps) {
   const teacherCanvas = useRef<HTMLCanvasElement>(null)
   const tubeCanvas = useRef<HTMLCanvasElement>(null)
   const controller = useRef<LocomotionController | null>(null)
@@ -68,8 +68,8 @@ export function LocomotionDemo() {
   const mounted = useRef(false)
   const busy = useRef(false)
   const playingRef = useRef(false)
-  const commandRef = useRef<Command>([...DEFAULT_COMMAND])
-  const [command, setCommand] = useState<Command>([...DEFAULT_COMMAND])
+  const commandRef = useRef<Command>([...initialCommand])
+  const [command, setCommand] = useState<Command>([...initialCommand])
   const [phase, setPhase] = useState<Phase>('idle')
   const [live, setLive] = useState<LiveState | null>(null)
   const [error, setError] = useState('')
@@ -110,7 +110,7 @@ export function LocomotionDemo() {
       const second = tubeCanvas.current
       if (!first || !second) throw new Error('Simulation canvases are unavailable.')
       let instance: LocomotionController | null = null
-      instance = new Controller({ canvases: [first, second], onState: (state: LiveState) => {
+      instance = new Controller({ scenario, initialCommand: [...commandRef.current], canvases: [first, second], onState: (state: LiveState) => {
         if (!isCurrent() || !instance || controller.current !== instance) return
         playingRef.current = state.status === 'playing'
         setLive(state)
@@ -199,7 +199,7 @@ export function LocomotionDemo() {
   return (
     <section className="locomotion-demo" aria-label="HZD locomotion comparison" aria-busy={busy.current}>
       <header className="locomotion-toolbar">
-        <div className="locomotion-title"><h2>HZD Locomotion</h2><span role="status">{status}</span></div>
+        <div className="locomotion-title"><h2>{label}</h2><span role="status">{status}</span></div>
         <div className="locomotion-clock">
           <span>Sim time <b>{measured(live?.time)} s</b></span>
           <span>Speed <b>{measured(live?.speed)} x</b></span>
@@ -219,7 +219,7 @@ export function LocomotionDemo() {
             <RotateCcw size={18} aria-hidden="true" />
           </button>
           <button type="button" title="Stop command" aria-label="Stop command" disabled={!ready}
-            onClick={() => applyCommand([0, 0, 0, commandRef.current[3], commandRef.current[4]])}>
+            onClick={() => applyCommand(commandRef.current.map((_, index) => index < 3 ? 0 : commandRef.current[index]))}>
             <Square size={17} aria-hidden="true" />
           </button>
         </div>
@@ -228,7 +228,7 @@ export function LocomotionDemo() {
       {(error || live?.message) && <div className="locomotion-message" role={error || failed ? 'alert' : 'status'}>{error || live?.message}</div>}
 
       <div className="locomotion-worlds">
-        {(['Teacher', 'HZD-Tube'] as const).map((label, index) => {
+        {policyLabels.map((label, index) => {
           const robot = live?.robots?.[index]
           return (
             <section key={label} className={`locomotion-world locomotion-world--${index === 0 ? 'teacher' : 'tube'}`} aria-label={label}>
@@ -255,8 +255,8 @@ export function LocomotionDemo() {
 
       <section className="locomotion-command" aria-label="Shared command">
         <h3>Shared Command</h3>
-        <div className="locomotion-command-grid">
-          {COMMAND_FIELDS.map((field, index) => <NumericControl key={field.label} {...field} value={command[index]}
+        <div className={`locomotion-command-grid locomotion-command-grid--${commandFields.length}`}>
+          {commandFields.map((field, index) => <NumericControl key={field.label} {...field} value={command[index]}
             disabled={locked} onChange={value => {
               const next: Command = [...commandRef.current]
               next[index] = value

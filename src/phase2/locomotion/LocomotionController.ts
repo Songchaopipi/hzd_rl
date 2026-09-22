@@ -1,9 +1,11 @@
-import { ASSET_BASE, loadPhysics } from './assets'
+import { loadPhysics, scenarioBase } from './assets'
 import { G1World } from './G1World'
 import { G1Scene } from './G1Scene'
 import type { Command, LiveState, Vec3 } from './types'
 
 interface Options {
+  scenario: string
+  initialCommand: Command
   canvases: [HTMLCanvasElement, HTMLCanvasElement]
   onState: (state: LiveState) => void
 }
@@ -12,7 +14,7 @@ export class LocomotionController {
   private physics: Awaited<ReturnType<typeof loadPhysics>> | null = null
   private worlds: G1World[] = []
   private scenes: G1Scene[] = []
-  private command: Command = [.4, 0, 0, .8, .75]
+  private command: Command
   private playing = false
   private disposed = false
   private resetting = false
@@ -32,11 +34,13 @@ export class LocomotionController {
   private publishedForce = '0,0,0'
 
   constructor(private readonly options: Options) {
+    this.command = [...options.initialCommand]
     document.addEventListener('visibilitychange', this.onVisibility)
   }
 
   init(): Promise<void> {
     if (!this.initTask) this.initTask = this.setup().catch(async error => {
+      console.error('[LocomotionController] initialization failed:', error)
       this.status = 'error'
       this.errorMessage = error instanceof Error ? error.message : String(error)
       this.publish()
@@ -48,17 +52,17 @@ export class LocomotionController {
 
   private async setup(): Promise<void> {
     this.publish()
-    this.physics = await loadPhysics(this.abort.signal)
+    this.physics = await loadPhysics(this.abort.signal, this.options.scenario)
     if (this.disposed) return
     const { mj, model, manifest } = this.physics
     for (let i = 0; i < 2; i++) {
-      const world = new G1World(mj, model, manifest, manifest.policies[i])
+      const world = new G1World(mj, model, manifest, manifest.policies[i], this.options.scenario)
       this.worlds.push(world)
       await world.init(this.abort.signal)
       if (this.disposed) return
       const scene = new G1Scene(this.options.canvases[i], i === 0 ? '#c65044' : '#197d84')
       this.scenes.push(scene)
-      await scene.load(manifest.visuals, ASSET_BASE)
+      await scene.load(manifest.visuals, scenarioBase(this.options.scenario))
       if (this.disposed) return
     }
     this.status = 'ready'
